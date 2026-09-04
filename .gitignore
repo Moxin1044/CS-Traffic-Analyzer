@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.pem
+*.key
+*.txt
+!README.md
+!requirements.txt
+*.pcap
+*.pcapng
+*.beacon_keys
+.venv/
+dist/
+build/
+*.spec

@@ -1,0 +1,3 @@
+scapy>=2.5
+pycryptodome>=3.19
+javaobj-py3>=0.4
