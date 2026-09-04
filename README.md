@@ -1,5 +1,7 @@
 # Cobalt Strike Beacon 流量分析工具
 
+当前版本：`v1.0.0`
+
 用于在获得授权的应急响应、取证分析或实验环境中，读取 Cobalt Strike 的
 `beacon_keys`，解密 HTTP Beacon 的元数据和 C2 数据，并直接在终端输出分析结果。
 

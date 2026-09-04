@@ -1,7 +1,11 @@
-name: CI
+name: CI / Release
 
 on:
   push:
+    branches:
+      - "**"
+    tags:
+      - "v*"
   pull_request:
 
 permissions:
@@ -11,8 +15,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: python -m pip install -r requirements.txt
@@ -22,14 +26,24 @@ jobs:
   build-windows:
     runs-on: windows-latest
     needs: test
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: python -m pip install -r requirements.txt pyinstaller
-      - run: pyinstaller --noconfirm --clean --onefile --windowed --name CS-Traffic-Analyzer cs_traffic_gui.py
-      - uses: actions/upload-artifact@v4
+      - run: pyinstaller --noconfirm --clean --onefile --windowed --name CS-Traffic-Analyzer-${{ github.ref_name }}-windows-x64 cs_traffic_gui.py
+      - uses: actions/upload-artifact@v5
         with:
           name: CS-Traffic-Analyzer-windows
-          path: dist/CS-Traffic-Analyzer.exe
+          path: dist/CS-Traffic-Analyzer-*-windows-x64.exe
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
+          files: dist/CS-Traffic-Analyzer-*-windows-x64.exe

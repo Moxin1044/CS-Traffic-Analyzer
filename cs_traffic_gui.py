@@ -18,12 +18,13 @@ MUTED = "#8298b2"
 CYAN = "#45d7e8"
 GREEN = "#73e6b1"
 RED = "#ff7187"
+VERSION = "1.0.0"
 
 
 class TrafficGui(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("CS Beacon // Traffic Analyzer")
+        self.title(f"CS Beacon // Traffic Analyzer v{VERSION}")
         self.geometry("1120x760")
         self.minsize(860, 560)
         self.configure(bg=BG)
@@ -51,7 +52,7 @@ class TrafficGui(tk.Tk):
         header = ttk.Frame(self)
         header.pack(fill="x", padx=28, pady=(24, 14))
         ttk.Label(header, text="CS BEACON", style="Title.TLabel").pack(anchor="w")
-        ttk.Label(header, text="AUTHORIZED TRAFFIC ANALYSIS  /  PCAPNG DECRYPTION", style="Sub.TLabel").pack(anchor="w", pady=(3, 0))
+        ttk.Label(header, text=f"V{VERSION}  /  AUTHORIZED TRAFFIC ANALYSIS  /  PCAPNG DECRYPTION", style="Sub.TLabel").pack(anchor="w", pady=(3, 0))
 
         controls = ttk.Frame(self, style="Panel.TFrame", padding=16)
         controls.pack(fill="x", padx=28, pady=8)
